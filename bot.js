@@ -30,8 +30,13 @@ const targetNode = document.querySelector(".syllable");
 const config = { attributes: true, childList: true, subtree: true };
 
 const pickWordsForLastSyllable = () => pickWordsBySyllable(dict, targetNode.innerText)
-const callback = (mutationList, observer) => console.log(targetNode.innerText, JSON.stringify(pickWordsForLastSyllable(), null, 2))
+const callback = (mutationList, observer) => {
+    console.log(targetNode.innerText);
+    const {short, medium, long } = pickWordsForLastSyllable();
+    console.log("Short :", short.join(", "));
+    console.log("Medium:",medium.join(", "));
+    console.log("Long  :",long.join(", "));
+}
 
 const observer = new MutationObserver(callback);
 observer.observe(targetNode, config);
-
