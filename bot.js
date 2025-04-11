@@ -1,4 +1,4 @@
-const dict = await fetch('https://cdn.jsdelivr.net/gh/ZedUnes/words/english/10000.json').then((r) => r.json());
+const dict = await fetch('https://cdn.jsdelivr.net/gh/words/an-array-of-english-words/index.json').then((r) => r.json());
 const used = {};
 const addToUser = (word) => used[word]=true;
 const pickWordsBySyllable = (words, syllable) => {
@@ -19,9 +19,9 @@ const pickWordsBySyllable = (words, syllable) => {
     return shuffled.slice(0, count);
   };
 
-  result.short = getRandomWords(shortWords, 3);
-  result.medium = getRandomWords(mediumWords, 3);
-  result.long = getRandomWords(longWords, 3);
+  result.short = getRandomWords(shortWords, 7);
+  result.medium = getRandomWords(mediumWords, 7);
+  result.long = getRandomWords(longWords, 7);
 
   return result;
 }
@@ -30,7 +30,8 @@ const targetNode = document.querySelector(".syllable");
 const config = { attributes: true, childList: true, subtree: true };
 
 const pickWordsForLastSyllable = () => pickWordsBySyllable(dict, targetNode.innerText)
-const callback = (mutationList, observer) => pickWordsForLastSyllable
+const callback = (mutationList, observer) => console.log(targetNode.innerText, JSON.stringify(pickWordsForLastSyllable(), null, 2))
 
 const observer = new MutationObserver(callback);
 observer.observe(targetNode, config);
+
